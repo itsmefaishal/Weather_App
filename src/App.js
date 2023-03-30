@@ -2,11 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
-// const API_KEY = "cedc1849fd96dc9382fbb08416721020";
-
-// url = 'https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=apikey'
-// http://api.openweathermap.org/geo/1.0/direct?q=delhi&limit={limit}&appid=apikey'
-
 
 function App() {
   const [lat,setLat] = useState(null);
@@ -14,7 +9,6 @@ function App() {
   const [temp,setTemp] = useState("");
   const [humidity, setHumidity] = useState('');
   const [speed,setSpeed] = useState('');
-  const [weather, setWeather] = useState('');
   const [weatherDescription, setWeatherDescription] = useState('');
   const [location,setLocation] = useState('');
   
@@ -37,10 +31,9 @@ function App() {
       const url = `https://api.openweathermap.org/data/2.5/weather?&units=metric&lat=${lat}&lon=${lon}&appid=${API_KEY}`;
       axios.get(url).then(response => response.data)
       .then(data => {
-      setTemp(data.main.temp)
+      setTemp(data.main.temp.toFixed(0))
       setHumidity(data.main.humidity)
       setSpeed(data.wind.speed)
-      setWeather(data.weather[0].main)
       setWeatherDescription(data.weather[0].description)
     })
     }
@@ -56,21 +49,43 @@ function App() {
 
 
   return (
+   
     <div className="App">
-      <h1 placeholder='location'>{location}</h1> 
-    <input
-      value={location}
-      onChange={event => setLocation(event.target.value)}
-      onKeyPress={searchLocation}
-      placeholder='Enter location'
-      type="text" />     
-      <p>latitude : {lat}</p>
-      <p>longitude : {lon}</p>
-      <p>Temperature : <b>{temp} °C</b></p>
-      <p>Wind speed : {speed} KMPH</p>
-      <p>Humidity : {humidity}%</p>
-      <p>Weather is {weather}</p>
-      <p><i>{weatherDescription}</i></p>
+      <div className="search">
+        <input
+        value={location}
+        onChange={event => setLocation(event.target.value)}
+        onKeyPress={searchLocation}
+        placeholder='Enter location'
+        type="text" />
+      </div>
+      <div className="container">
+        <div className="top">
+          <div className="location">
+            <p>{location}</p>
+            <div className="temp">
+              <h1>{temp}°C</h1>
+            </div>
+            <div className="description">
+              <p>{weatherDescription}</p>
+            </div>
+          </div>
+        </div>
+        <div className="bottom">
+          <div className="feels">
+            <p className='bold'>{temp}°C</p>
+            <p>Temperature</p>
+          </div>
+          <div className="humidity">
+            <p className='bold'>{humidity}%</p>
+            <p>Humidity</p>
+          </div>
+          <div className="wind">
+            <p className='bold'>{speed} KMPH</p>
+            <p>Wind speed</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
