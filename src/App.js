@@ -11,6 +11,9 @@ function App() {
   const [speed,setSpeed] = useState('');
   const [weatherDescription, setWeatherDescription] = useState('');
   const [location,setLocation] = useState('');
+  const [tempMin, setTempMin] = useState('');
+  const [tempMax, setTempMax] = useState('');
+  const [seaLevel, setSealevel] = useState('');
   
   const latLon = `http://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${API_KEY}`;
 
@@ -33,6 +36,9 @@ function App() {
       .then(data => {
       setTemp(data.main.temp.toFixed(0))
       setHumidity(data.main.humidity)
+      setTempMax(data.main.temp_max)
+      setTempMin(data.main.temp_min)
+      setSealevel(data.main.sea_level)
       setSpeed(data.wind.speed)
       setWeatherDescription(data.weather[0].description)
     })
@@ -59,33 +65,37 @@ function App() {
         placeholder='Enter location'
         type="text" />
       </div>
-      <div className="container">
-        <div className="top">
-          <div className="location">
-            <p>{location}</p>
-            <div className="temp">
-              <h1>{temp}°C</h1>
-            </div>
-            <div className="description">
-              <p>{weatherDescription}</p>
-            </div>
-          </div>
+      {
+        location ? 
+        
+        <div className="container">
+        <div className="top">    
+          <p>{location}</p>
+          <h1>{temp}°C</h1>
+          <p>{weatherDescription}</p>   
+        </div>
+        <div className="middle">
+          <p><span>Maximum temperature</span><span><b>{tempMax}°C</b></span></p>
+          <p><span>Minimum temperature</span><span><b>{tempMin}°C</b></span></p>
+          <p><span>Sea level </span><span><b>{seaLevel}m</b></span></p>
         </div>
         <div className="bottom">
           <div className="feels">
-            <p className='bold'>{temp}°C</p>
+            <p><b>{temp}°C</b></p>
             <p>Temperature</p>
           </div>
           <div className="humidity">
-            <p className='bold'>{humidity}%</p>
+            <p><b>{humidity}%</b></p>
             <p>Humidity</p>
           </div>
           <div className="wind">
-            <p className='bold'>{speed} KMPH</p>
+            <p><b>{speed} KMPH</b></p>
             <p>Wind speed</p>
           </div>
         </div>
       </div>
+         : <></>
+      }
     </div>
   );
 }
