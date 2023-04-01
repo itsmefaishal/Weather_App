@@ -31,11 +31,12 @@ title {
 
   .search {
     text-align: center;
-    padding: 1rem;
+    padding: 1rem .7rem;
   }
 
+
   input {
-    padding: 1rem;
+    padding: 1rem .7rem;
     font-size: large;
     font-family: 'Josefin Sans', sans-serif;
     border-radius: 25px;
@@ -106,10 +107,23 @@ title {
     p {
       font-size: small;
     }
+    .bottom {
+      padding: 1rem 1rem;
+    }
+    .middle {
+      padding: 1rem 1rem;
+    }
+
   }
 
   @media screen and (max-width : 320px) {
     p {
       font-size: x-small;
+    }
+    .bottom {
+      padding: 1rem .7rem;
+    }
+    .middle {
+      padding: 1rem .7rem;
     }
   }
