@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY ="cedc1849fd96dc9382fbb08416721020";
 
 function App() {
   const [lat,setLat] = useState(null);
