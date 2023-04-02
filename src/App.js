@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_KEY ="cedc1849fd96dc9382fbb08416721020";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 function App() {
   const [lat,setLat] = useState(null);
@@ -15,7 +15,7 @@ function App() {
   const [tempMax, setTempMax] = useState('');
   const [seaLevel, setSealevel] = useState('');
   
-  const latLon = `http://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${API_KEY}`;
+  const latLon = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${API_KEY}`;
 
   useEffect(() => {
     if(location){
@@ -49,7 +49,6 @@ function App() {
   const searchLocation = (event) => {
     if(event.key === 'Enter'){
       setLocation(event.target.value);
-      event.target.value= "";
     }
   }
 
@@ -59,8 +58,8 @@ function App() {
     <div className="App">
       <div className="search">
         <input
-        value={location}
-        onChange={event => setLocation(event.target.value)}
+        defaultValue={location}
+        onSubmit={searchLocation}
         onKeyPress={searchLocation}
         placeholder='Enter Location'
         type="text" />
