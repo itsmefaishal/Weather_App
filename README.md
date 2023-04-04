@@ -1,5 +1,8 @@
 # Getting Started with Create React App
 
+You can visit the deployed application through this link 
+Web app link - https://faishal-weather-app.netlify.app/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
